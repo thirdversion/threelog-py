@@ -6,4 +6,7 @@ setup(
     name="StriveLogger",
     version="0.0.1",
     packages=project_packages,
+    package_data={
+        "strivelogger": ["py.typed"],
+    },
 )
