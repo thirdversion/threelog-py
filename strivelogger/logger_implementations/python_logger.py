@@ -1,5 +1,6 @@
+import json
 import logging
-from re import L
+import traceback
 from typing import Any, Dict, Literal, Optional, Union
 
 from ..logger_implementation import LoggerImplementation
@@ -30,7 +31,7 @@ class PythonLogger(LoggerImplementation):
         trace_id: Optional[str],
         extra: Dict = None,
         exc_info: Optional[Union[BaseException, str]] = None,
-    ) -> Dict[str, Any]:
+    ) -> str:
         record: Dict[str, Any] = {
             "message": message,
         }
@@ -40,9 +41,12 @@ class PythonLogger(LoggerImplementation):
         if extra:
             record["extra"] = extra
         if exc_info:
-            record["exc_info"] = exc_info
+            if isinstance(exc_info, BaseException):
+                record["exc_info"] = traceback.format_exception(exc_info)
+            else:
+                record["exc_info"] = str(exc_info)
 
-        return record
+        return json.dumps(record)
 
     def __log_json(
         self,

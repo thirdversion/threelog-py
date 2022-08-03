@@ -9,7 +9,8 @@ class NullLogger(LoggerImplementation):
 
     Log messages are discarded.
 
-    There may be valid use-cases for this logger in production, but it's primary purpose to avoid null pointer exceptions in the StriveLogger.
+    There may be valid use-cases for this logger in production, but it's primary purpose to
+    avoid null pointer exceptions in the StriveLogger.
     """
 
     def debug(self, message: str, trace_id: Optional[str], extra: Dict = None) -> None:
