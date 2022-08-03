@@ -16,6 +16,14 @@ The package provides a class named "StriveLogger" which has class methods for "d
 
 The actual logging is handled by a logger implementation which must be supplied once during your application startup, by calling the "initialize" method.
 
+```
+from strivelogger import StriveLogger, ConsoleLogger
+
+
+StriveLogger.initialize(logger=ConsoleLogger())
+```
+
+
 ### Logger Implementations
 
 Some simple implementations have been provided as part of this project:
@@ -60,6 +68,16 @@ class MyTracerImplementation(TracerImplementation):
     def get_trace_id(self) -> str:
         # TODO: find or set a trace ID and return it
         raise NotImplementedError()
+```
+
+## Example usage
+
+```
+from strivelogger import StriveLogger, UvicornLogger
+
+
+StriveLogger.initialize(logger=UvicornLogger(level="DEBUG", enable_json=True))
+StriveLogger.info("Logging initialized", extra={"timestamp": datetime.now().isoformat()})
 ```
 
 ## Contributing
