@@ -27,27 +27,58 @@ StriveLogger.initialize(logger=ConsoleLogger())
 
 ### Logger Implementations
 
-Some simple implementations have been provided as part of this project:
+You may choose to create your own logger implementation, for example to wrap up a structured logger like Google's StackDriver, but some simple implementations have been provided as part of this project as well.
 
-#### ConsoleLogger
+To create your own implementation, create a class which inherits from LoggerImplementation and implement the required methods:
+
+```
+from strivelogger.logger_implementation import LoggerImplementation
+
+class MyLogger(LoggerImplementation):
+    def debug(self, message: str, trace_id: Optional[str], extra: Dict = None) -> None:
+        # TODO: log somewhere
+        pass
+
+    def info(cls, message: str, trace_id: Optional[str], extra: Dict = None) -> None:
+        # TODO: log somewhere
+        pass
+
+    def warn(cls, message: str, trace_id: Optional[str], extra: Dict = None) -> None:
+        # TODO: log somewhere
+        pass
+
+    def error(
+        cls,
+        message: str,
+        trace_id: Optional[str],
+        exc_info: Optional[Union[BaseException, str]],
+        extra: Optional[Dict],
+    ) -> None:
+        # TODO: log somewhere
+        pass
+```
+
+#### Provided Implementations
+
+##### ConsoleLogger
 
 ```from strivelogger.logger_implementations.console_logger import ConsoleLogger```
 
 Prints all log messages to the console.
 
-#### NullLogger
+##### NullLogger
 
 ```from strivelogger.logger_implementations.null_logger import NullLogger```
 
 Throws away all log requests.  This implementation is used prior to initialization in order to ensure that the StriveLogger doesn't throw null pointer exceptions if not initialized.
 
-#### PythonLogger
+##### PythonLogger
 
 ```from strivelogger.logger_implementations.python_logger import PythonLogger```
 
 Wraps an instance of a python logger.  You can supply a name in order to create or use an existing instance, or simply use the root logger.  This logger can log simple strings, or it can log as JSON.
 
-#### UvicornLogger
+##### UvicornLogger
 
 ```from strivelogger.logger_implementations.uvicorn_logger import UvicornLogger```
 
