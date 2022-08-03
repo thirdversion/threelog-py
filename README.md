@@ -3,6 +3,7 @@
 </p>
 
 # Strive Logger
+[![Continuous Integration](https://github.com/strivesolutions/strive-logger-py/actions/workflows/ci.yml/badge.svg)](https://github.com/strivesolutions/strive-logger-py/actions/workflows/ci.yml)
 
 ## What is the Strive Logger?
 
