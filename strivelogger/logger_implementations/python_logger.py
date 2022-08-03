@@ -80,7 +80,6 @@ class PythonLogger(LoggerImplementation):
         exc_info: Optional[Union[BaseException, str]] = None,
     ) -> None:
         log = self.__log_json if self.enable_json else self.__log_string
-        # if self.enable_json:
         log(
             level,
             message,
@@ -88,14 +87,6 @@ class PythonLogger(LoggerImplementation):
             extra,
             exc_info,
         )
-        # else:
-        #     self.__log_string(
-        #         level,
-        #         message,
-        #         trace_id,
-        #         extra,
-        #         exc_info,
-        #     )
 
     def debug(self, message: str, trace_id: Optional[str], extra: Dict = None) -> None:
         self.__log(logging.DEBUG, message, trace_id, extra)
