@@ -4,6 +4,8 @@ env:
   PYTHON_VERSION: "3.10"
 
 on:
+  workflow_dispatch:
+
   push:
     branches:
       - main
