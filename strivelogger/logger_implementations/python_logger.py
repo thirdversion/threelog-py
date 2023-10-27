@@ -1,7 +1,7 @@
 import json
 import logging
 import traceback
-from typing import Any, Dict, Literal, Optional, Union
+from typing import Any, Dict, Literal, Optional
 
 from ..logger_implementation import LoggerImplementation
 
@@ -28,9 +28,9 @@ class PythonLogger(LoggerImplementation):
     def __create_json_record(
         self,
         message: str,
-        trace_id: Optional[str],
-        extra: Dict = None,
-        exc_info: Optional[Union[BaseException, str]] = None,
+        trace_id: str | None,
+        extra: dict | None,
+        exc_info: BaseException | str | None,
     ) -> str:
         record: Dict[str, Any] = {
             "message": message,
@@ -52,9 +52,9 @@ class PythonLogger(LoggerImplementation):
         self,
         level: int,
         message: str,
-        trace_id: Optional[str],
-        extra: Dict = None,
-        exc_info: Optional[Union[BaseException, str]] = None,
+        trace_id: str | None,
+        extra: dict | None,
+        exc_info: BaseException | str | None,
     ) -> None:
         record = self.__create_json_record(message, trace_id, extra, exc_info)
         self.logger.log(level, record)
@@ -63,9 +63,9 @@ class PythonLogger(LoggerImplementation):
         self,
         level: int,
         message: str,
-        trace_id: Optional[str],
-        extra: Dict = None,
-        exc_info: Optional[Union[BaseException, str]] = None,
+        trace_id: str | None,
+        extra: dict | None,
+        exc_info: BaseException | str | None,
     ) -> None:
         if trace_id:
             message = f"[{trace_id}] {message}"
@@ -79,9 +79,9 @@ class PythonLogger(LoggerImplementation):
         self,
         level: int,
         message: str,
-        trace_id: Optional[str],
-        extra: Dict = None,
-        exc_info: Optional[Union[BaseException, str]] = None,
+        trace_id: str | None,
+        extra: dict | None,
+        exc_info: BaseException | str | None = None,
     ) -> None:
         log = self.__log_json if self.enable_json else self.__log_string
         log(
@@ -92,27 +92,20 @@ class PythonLogger(LoggerImplementation):
             exc_info,
         )
 
-    def debug(self, message: str, trace_id: Optional[str], extra: Dict = None) -> None:
+    def debug(self, message: str, trace_id: str | None, extra: dict | None = None) -> None:
         self.__log(logging.DEBUG, message, trace_id, extra)
 
-    def info(self, message: str, trace_id: Optional[str], extra: Dict = None) -> None:
+    def info(self, message: str, trace_id: str | None, extra: dict | None = None) -> None:
         self.__log(logging.INFO, message, trace_id, extra)
 
-    def warn(self, message: str, trace_id: Optional[str], extra: Dict = None) -> None:
+    def warn(self, message: str, trace_id: str | None, extra: dict | None = None) -> None:
         self.__log(logging.WARN, message, trace_id, extra)
 
     def error(
         self,
         message: str,
-        trace_id: Optional[str],
-        exc_info: Optional[Union[BaseException, str]],
-        extra: Optional[Dict],
+        trace_id: str | None,
+        exc_info: BaseException | str | None = None,
+        extra: dict | None = None,
     ) -> None:
         self.__log(logging.ERROR, message, trace_id, extra, exc_info)
-        # if trace_id:
-        #     message = f"[{trace_id}] {message}"
-
-        # if extra:
-        #     message = f"{message}\n\t\t{extra}"
-
-        # self.logger.error(message, exc_info=exc_info)  # type: ignore

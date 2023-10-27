@@ -1,5 +1,4 @@
 from abc import ABC, abstractmethod
-from typing import Dict, Optional, Union
 
 
 class LoggerImplementation(ABC):
@@ -7,8 +6,8 @@ class LoggerImplementation(ABC):
     def debug(
         self,
         message: str,
-        trace_id: Optional[str],
-        extra: Dict = None,
+        trace_id: str | None,
+        extra: dict | None = None,
     ) -> None:
         raise NotImplementedError()
 
@@ -16,8 +15,8 @@ class LoggerImplementation(ABC):
     def info(
         self,
         message: str,
-        trace_id: Optional[str],
-        extra: Dict = None,
+        trace_id: str | None,
+        extra: dict | None = None,
     ) -> None:
         raise NotImplementedError()
 
@@ -25,8 +24,8 @@ class LoggerImplementation(ABC):
     def warn(
         self,
         message: str,
-        trace_id: Optional[str],
-        extra: Dict = None,
+        trace_id: str | None,
+        extra: dict | None = None,
     ) -> None:
         raise NotImplementedError()
 
@@ -34,8 +33,8 @@ class LoggerImplementation(ABC):
     def error(
         self,
         message: str,
-        trace_id: Optional[str],
-        exc_info: Optional[Union[BaseException, str]],
-        extra: Optional[Dict],
+        trace_id: str | None,
+        exc_info: BaseException | str | None = None,
+        extra: dict | None = None,
     ) -> None:
         raise NotImplementedError()

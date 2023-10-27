@@ -2,9 +2,7 @@
 assertpy
 black
 build
-flake8
-flake8-bugbear
-isort
-mypy
+pyright
 pytest
+ruff
 twine

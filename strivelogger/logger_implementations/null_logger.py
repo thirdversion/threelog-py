@@ -1,5 +1,3 @@
-from typing import Dict, Optional, Union
-
 from ..logger_implementation import LoggerImplementation
 
 
@@ -13,20 +11,20 @@ class NullLogger(LoggerImplementation):
     avoid null pointer exceptions in the StriveLogger.
     """
 
-    def debug(self, message: str, trace_id: Optional[str], extra: Dict = None) -> None:
+    def debug(self, message: str, trace_id: str | None, extra: dict | None = None) -> None:
         pass
 
-    def info(cls, message: str, trace_id: Optional[str], extra: Dict = None) -> None:
+    def info(self, message: str, trace_id: str | None, extra: dict | None = None) -> None:
         pass
 
-    def warn(cls, message: str, trace_id: Optional[str], extra: Dict = None) -> None:
+    def warn(self, message: str, trace_id: str | None, extra: dict | None = None) -> None:
         pass
 
     def error(
-        cls,
+        self,
         message: str,
-        trace_id: Optional[str],
-        exc_info: Optional[Union[BaseException, str]],
-        extra: Optional[Dict],
+        trace_id: str | None,
+        exc_info: BaseException | str | None = None,
+        extra: dict | None = None,
     ) -> None:
         pass
