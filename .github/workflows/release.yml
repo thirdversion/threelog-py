@@ -10,6 +10,8 @@ on:
     paths:
       - "pyproject.toml"
 
+  workflow_dispatch:
+
 jobs:
   cancel-previous:
     name: Cancel previous runs
@@ -39,12 +41,15 @@ jobs:
         run: |
           NEW_VERSION="$(./versionChangeCheck.sh)"
           echo "New version if changed = '$NEW_VERSION'"
-          echo ::set-output name=newVersion::$NEW_VERSION
+          echo "newVersion=$NEW_VERSION" >> $GITHUB_OUTPUT
 
   create-release:
     name: Create release
     runs-on: ubuntu-latest
     needs: ["check"]
+
+    permissions:
+      contents: write
 
     if: ${{ (needs.check.outputs.newVersion != '') }}
 
