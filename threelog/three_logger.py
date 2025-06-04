@@ -5,9 +5,14 @@ from .logger_implementations.null_logger import NullLogger
 from .tracer_implementation import TracerImplementation
 
 
-class StriveLogger:
+class ThreeLog:
     _logger: LoggerImplementation = NullLogger()
     _tracer: Optional[TracerImplementation] = None
+
+    @classmethod
+    def reset(cls) -> None:
+        cls._logger = NullLogger()
+        cls._tracer = None
 
     @classmethod
     def initialize(

@@ -37,8 +37,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install dev dependencies
-        run: pip install -r dev-requirements.txt
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+
+      - name: Install dependencies
+        run: |
+          uv pip install . --group dev --system
 
       - name: Test
         run: ./test.sh
@@ -53,15 +57,19 @@ jobs:
 
     steps:
       - name: Setup python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.version }}
 
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install dev dependencies
-        run: pip install -r dev-requirements.txt
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+
+      - name: Install dependencies
+        run: |
+          uv pip install . --group dev --system
 
       - name: Lint
         run: ./lint.sh
@@ -72,11 +80,11 @@ jobs:
     needs: [cancel-previous]
     strategy:
       matrix:
-        version: ["3.10", "3.11", "3.12"]
+        version: ["3.10", "3.11", "3.12", "3.13"]
 
     steps:
       - name: Setup python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.version }}
 
