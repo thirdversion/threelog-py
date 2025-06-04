@@ -3,11 +3,11 @@
 set -e
 
 echo "Lint check..."
-ruff check strivelogger --show-source --output-format=github
+ruff check threelog --output-format=github
 echo "✅"
 
 echo "Format check..."
-black strivelogger --check
+ruff format threelog --check
 
 echo "Type check..."
-pyright strivelogger
+pyright threelog
