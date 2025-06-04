@@ -1,8 +1,0 @@
-# These can be unversioned
-assertpy
-black
-build
-pyright
-pytest
-ruff
-twine
