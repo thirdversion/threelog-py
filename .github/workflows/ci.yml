@@ -42,8 +42,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          uv pip install --group dev
-          uv pip install .
+          uv pip install . --group dev --system
 
       - name: Test
         run: ./test.sh
@@ -70,8 +69,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          uv pip install --group dev
-          uv pip install .
+          uv pip install . --group dev --system
 
       - name: Lint
         run: ./lint.sh
