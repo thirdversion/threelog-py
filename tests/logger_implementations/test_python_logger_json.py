@@ -5,9 +5,9 @@ from typing import Dict, Optional
 from assertpy import assert_that
 from pytest import LogCaptureFixture, fixture
 
-from strivelogger import StriveLogger
-from strivelogger.logger_implementations.python_logger import PythonLogger
-from strivelogger.tracer_implementation import TracerImplementation
+from threelog import ThreeLog
+from threelog.logger_implementations.python_logger import PythonLogger
+from threelog.tracer_implementation import TracerImplementation
 
 MOCK_TRACE_ID = "MockTraceId"
 
@@ -19,11 +19,11 @@ class TestTracer(TracerImplementation):
 
 @fixture(autouse=True)
 def setup():
-    StriveLogger.initialize(PythonLogger(enable_json=True), TestTracer())
+    ThreeLog.initialize(PythonLogger(enable_json=True), TestTracer())
 
 
 def test_message_is_json(caplog: LogCaptureFixture):
-    StriveLogger.info("Test message")
+    ThreeLog.info("Test message")
     actual = caplog.records[0].message
     record = json.loads(actual)
     assert record
@@ -32,7 +32,7 @@ def test_message_is_json(caplog: LogCaptureFixture):
 def test_json_contains_extra(caplog: LogCaptureFixture):
     expected_value = "bar"
     extra = {"foo": expected_value}
-    StriveLogger.info("", extra=extra)
+    ThreeLog.info("", extra=extra)
     actual = caplog.records[0].message
     record: Dict = json.loads(actual)
 
@@ -41,7 +41,7 @@ def test_json_contains_extra(caplog: LogCaptureFixture):
 
 
 def test_json_contains_trace(caplog: LogCaptureFixture):
-    StriveLogger.info("Test message")
+    ThreeLog.info("Test message")
     actual = caplog.records[0].message
     record: Dict = json.loads(actual)
 
@@ -50,7 +50,7 @@ def test_json_contains_trace(caplog: LogCaptureFixture):
 
 def test_json_contains_exception(caplog: LogCaptureFixture):
     expected = ValueError("test error")
-    StriveLogger.error("Test message", exc_info=expected)
+    ThreeLog.error("Test message", exc_info=expected)
     record: Dict = json.loads(caplog.records[0].message)
     actual = record.get("exc_info", None)
 
@@ -59,7 +59,7 @@ def test_json_contains_exception(caplog: LogCaptureFixture):
 
 def test_json_contains_error_string(caplog: LogCaptureFixture):
     expected = "some error message"
-    StriveLogger.error("Test message", exc_info=expected)
+    ThreeLog.error("Test message", exc_info=expected)
     record: Dict = json.loads(caplog.records[0].message)
     actual = record.get("exc_info", None)
 
