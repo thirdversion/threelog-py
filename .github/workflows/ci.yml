@@ -41,7 +41,9 @@ jobs:
         uses: astral-sh/setup-uv@v5
 
       - name: Install dependencies
-        run: uv sync --dev
+        run: |
+          uv sync
+          uv pip install .
 
       - name: Test
         run: ./test.sh
@@ -67,7 +69,9 @@ jobs:
         uses: astral-sh/setup-uv@v5
 
       - name: Install dependencies
-        run: uv sync --dev
+        run: |
+          uv sync
+          uv pip install .
 
       - name: Lint
         run: ./lint.sh
