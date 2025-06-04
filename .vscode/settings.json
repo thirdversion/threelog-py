@@ -1,9 +1,11 @@
 {
+    "editor.codeActionsOnSave": {
+        "source.organizeImports": true
+    },
     "editor.formatOnSave": true,
     "python.testing.pytestEnabled": true,
-    "editor.codeActionsOnSave": {
-        "source.fixAll.ruff": "always",
-        "source.organizeImports.ruff": "always"
-    },
-    "python.analysis.importFormat": "relative"
+    "python.analysis.typeCheckingMode": "basic",
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.black-formatter"
+    }
 }

@@ -4,9 +4,9 @@ from typing import Optional
 from assertpy import assert_that
 from pytest import LogCaptureFixture, fixture
 
-from threelog import ThreeLog
-from threelog.logger_implementations.python_logger import PythonLogger
-from threelog.tracer_implementation import TracerImplementation
+from strivelogger import StriveLogger
+from strivelogger.logger_implementations.python_logger import PythonLogger
+from strivelogger.tracer_implementation import TracerImplementation
 
 MOCK_TRACE_ID = "MockTraceId"
 
@@ -18,13 +18,13 @@ class TestTracer(TracerImplementation):
 
 @fixture(autouse=True)
 def setup():
-    ThreeLog.initialize(PythonLogger(), TestTracer())
+    StriveLogger.initialize(PythonLogger(), TestTracer())
 
 
 def test_can_log_debug(caplog: LogCaptureFixture):
     expected = "Test message"
     with caplog.at_level(logging.DEBUG):
-        ThreeLog.debug(expected)
+        StriveLogger.debug(expected)
     actual = caplog.text
 
     assert_that(actual).contains("DEBUG")
@@ -35,7 +35,7 @@ def test_can_log_debug(caplog: LogCaptureFixture):
 def test_can_log_debug_extra(caplog: LogCaptureFixture):
     expected = {"foo": "bar"}
     with caplog.at_level(logging.DEBUG):
-        ThreeLog.debug("", extra=expected)
+        StriveLogger.debug("", extra=expected)
     actual = caplog.text
 
     assert_that(actual).contains("DEBUG")
@@ -44,7 +44,7 @@ def test_can_log_debug_extra(caplog: LogCaptureFixture):
 
 def test_can_log_info(caplog: LogCaptureFixture):
     expected = "Test message"
-    ThreeLog.info(expected)
+    StriveLogger.info(expected)
     actual = caplog.text
 
     assert_that(actual).contains("INFO")
@@ -54,7 +54,7 @@ def test_can_log_info(caplog: LogCaptureFixture):
 
 def test_can_log_info_extra(caplog: LogCaptureFixture):
     expected = {"foo": "bar"}
-    ThreeLog.info("", extra=expected)
+    StriveLogger.info("", extra=expected)
     actual = caplog.text
 
     assert_that(actual).contains("INFO")
@@ -63,7 +63,7 @@ def test_can_log_info_extra(caplog: LogCaptureFixture):
 
 def test_can_log_warn(caplog: LogCaptureFixture):
     expected = "Test message"
-    ThreeLog.warn(expected)
+    StriveLogger.warn(expected)
     actual = caplog.text
 
     assert_that(actual).contains("WARN")
@@ -73,7 +73,7 @@ def test_can_log_warn(caplog: LogCaptureFixture):
 
 def test_can_log_warn_extra(caplog: LogCaptureFixture):
     expected = {"foo": "bar"}
-    ThreeLog.warn("", extra=expected)
+    StriveLogger.warn("", extra=expected)
     actual = caplog.text
 
     assert_that(actual).contains("WARN")
@@ -82,7 +82,7 @@ def test_can_log_warn_extra(caplog: LogCaptureFixture):
 
 def test_can_log_error(caplog: LogCaptureFixture):
     expected = "Test message"
-    ThreeLog.error(expected)
+    StriveLogger.error(expected)
     actual = caplog.text
 
     assert_that(actual).contains("ERROR")
@@ -92,7 +92,7 @@ def test_can_log_error(caplog: LogCaptureFixture):
 
 def test_can_log_error_extra(caplog: LogCaptureFixture):
     expected = {"foo": "bar"}
-    ThreeLog.error("", extra=expected)
+    StriveLogger.error("", extra=expected)
     actual = caplog.text
 
     assert_that(actual).contains("ERROR")
@@ -101,7 +101,7 @@ def test_can_log_error_extra(caplog: LogCaptureFixture):
 
 def test_can_log_error_exception(caplog: LogCaptureFixture):
     expected = ValueError("test error")
-    ThreeLog.error("", exc_info=expected)
+    StriveLogger.error("", exc_info=expected)
     actual = caplog.text
 
     assert_that(actual).contains("ERROR")
