@@ -133,7 +133,3 @@ If submitting a pull request, please ensure the following standards are met:
 ## Additional information
 
 This package has no dependencies on any other packages.
-
-Developed by:
-
-© 2022 [Strive Business Solutions](https://www.strivebusiness.ca/)
