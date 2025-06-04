@@ -3,9 +3,9 @@ from typing import Optional
 from assertpy import assert_that
 from pytest import CaptureFixture, fixture
 
-from strivelogger import StriveLogger
-from strivelogger.logger_implementations.console_logger import ConsoleLogger
-from strivelogger.tracer_implementation import TracerImplementation
+from threelog import ThreeLog
+from threelog.logger_implementations.console_logger import ConsoleLogger
+from threelog.tracer_implementation import TracerImplementation
 
 MOCK_TRACE_ID = "MockTraceId"
 
@@ -17,12 +17,12 @@ class TestTracer(TracerImplementation):
 
 @fixture(autouse=True)
 def setup():
-    StriveLogger.initialize(ConsoleLogger(), TestTracer())
+    ThreeLog.initialize(ConsoleLogger(), TestTracer())
 
 
 def test_can_log_debug(capfd: CaptureFixture[str]):
     expected = "Test message"
-    StriveLogger.debug(expected)
+    ThreeLog.debug(expected)
     actual, err = capfd.readouterr()
     assert_that(actual).contains("DEBUG:")
     assert_that(actual).contains(expected)
@@ -31,7 +31,7 @@ def test_can_log_debug(capfd: CaptureFixture[str]):
 
 def test_can_log_debug_extra(capfd: CaptureFixture[str]):
     expected = {"foo": "bar"}
-    StriveLogger.debug("", extra=expected)
+    ThreeLog.debug("", extra=expected)
     actual, _ = capfd.readouterr()
     assert_that(actual).contains("DEBUG:")
     assert_that(actual).contains(str(expected))
@@ -39,7 +39,7 @@ def test_can_log_debug_extra(capfd: CaptureFixture[str]):
 
 def test_can_log_info(capfd: CaptureFixture[str]):
     expected = "Test message"
-    StriveLogger.info(expected)
+    ThreeLog.info(expected)
     actual, _ = capfd.readouterr()
     assert_that(actual).contains("INFO:")
     assert_that(actual).contains(expected)
@@ -48,7 +48,7 @@ def test_can_log_info(capfd: CaptureFixture[str]):
 
 def test_can_log_info_extra(capfd: CaptureFixture[str]):
     expected = {"foo": "bar"}
-    StriveLogger.info("", extra=expected)
+    ThreeLog.info("", extra=expected)
     actual, _ = capfd.readouterr()
     assert_that(actual).contains("INFO:")
     assert_that(actual).contains(str(expected))
@@ -56,7 +56,7 @@ def test_can_log_info_extra(capfd: CaptureFixture[str]):
 
 def test_can_log_warn(capfd: CaptureFixture[str]):
     expected = "Test message"
-    StriveLogger.warn(expected)
+    ThreeLog.warn(expected)
     actual, _ = capfd.readouterr()
     assert_that(actual).contains("WARN:")
     assert_that(actual).contains(expected)
@@ -65,7 +65,7 @@ def test_can_log_warn(capfd: CaptureFixture[str]):
 
 def test_can_log_warn_extra(capfd: CaptureFixture[str]):
     expected = {"foo": "bar"}
-    StriveLogger.warn("", extra=expected)
+    ThreeLog.warn("", extra=expected)
     actual, _ = capfd.readouterr()
     assert_that(actual).contains("WARN:")
     assert_that(actual).contains(str(expected))
@@ -73,7 +73,7 @@ def test_can_log_warn_extra(capfd: CaptureFixture[str]):
 
 def test_can_log_error(capfd: CaptureFixture[str]):
     expected = "Test message"
-    StriveLogger.error(expected)
+    ThreeLog.error(expected)
     actual, _ = capfd.readouterr()
     assert_that(actual).contains("ERROR:")
     assert_that(actual).contains(expected)
@@ -82,7 +82,7 @@ def test_can_log_error(capfd: CaptureFixture[str]):
 
 def test_can_log_error_extra(capfd: CaptureFixture[str]):
     expected = {"foo": "bar"}
-    StriveLogger.error("", extra=expected)
+    ThreeLog.error("", extra=expected)
     actual, _ = capfd.readouterr()
     assert_that(actual).contains("ERROR:")
     assert_that(actual).contains(str(expected))
@@ -90,7 +90,7 @@ def test_can_log_error_extra(capfd: CaptureFixture[str]):
 
 def test_can_log_error_exception(capfd: CaptureFixture[str]):
     expected = ValueError("test error")
-    StriveLogger.error("", exc_info=expected)
+    ThreeLog.error("", exc_info=expected)
     actual, _ = capfd.readouterr()
     assert_that(actual).contains("ERROR:")
     assert_that(actual).contains(str(expected))
