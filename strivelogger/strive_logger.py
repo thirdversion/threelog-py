@@ -5,7 +5,7 @@ from .logger_implementations.null_logger import NullLogger
 from .tracer_implementation import TracerImplementation
 
 
-class ThreeLog:
+class StriveLogger:
     _logger: LoggerImplementation = NullLogger()
     _tracer: Optional[TracerImplementation] = None
 
