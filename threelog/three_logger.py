@@ -10,6 +10,11 @@ class ThreeLog:
     _tracer: Optional[TracerImplementation] = None
 
     @classmethod
+    def reset(cls) -> None:
+        cls._logger = NullLogger()
+        cls._tracer = None
+
+    @classmethod
     def initialize(
         cls,
         logger: LoggerImplementation,

@@ -5,6 +5,7 @@ requires-python = ">=3.10"
 description = "A flexible logging abstraction layer"
 readme = "README.md"
 license = { file = "LICENSE" }
+dependencies = []
 
 [project.urls]
 "Homepage" = "https://github.com/thirdversion/threelog-py"
